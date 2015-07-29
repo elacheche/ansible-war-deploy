@@ -1,3 +1,4 @@
 # ansible-warDeploy
 
-Let's try this
+A playbook to deploy a WAR on Tomcat & restart it.
+
