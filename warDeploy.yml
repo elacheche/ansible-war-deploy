@@ -2,27 +2,19 @@
 - hosts: tomcatServer
   vars:
   - warName: helloworld.war
-  - warLocalPath: /path/to/get/war
   - warRemotePath: /path/to/put/war
 
   tasks:
-  - name: Copy WAR to server
-    copy: src={{ warLocalPath }}/{{ warName }} dest={{ warRemotePath }}/{{ warName }}
+  - name: Download WAR to server
+    command: wget http://example.com/file.war -O {{ warRemotePath }}/{{ warName }}
   
   - name: Unzip WAR file
     unarchive: src={{ warRemotePath }}/{{ warName }} dest=/var/lib/tomcat7/webapps/ROOT/ copy=no mode=0755 owner=tomcat7 group=tomcat7
     notify:
         - restart tomcat7
    
-  - name: wait for tomcat to start
-    wait_for: port=8080
-
   - name: delete remote war file
     file: path={{ warRemotePath }}/{{ warName }} state=absent
-
-  - name: delete local war file
-    file: path={{ warLocalPath }}/{{ warName }} state=absent
-    delegate_to: localhost
 
   handlers:
     - name: restart tomcat7
