@@ -13,7 +13,7 @@
     notify:
         - restart tomcat7
    
-  - name: delete remote war file
+  - name: Delete remote war file
     file: path={{ warRemotePath }}/{{ warName }} state=absent
 
   handlers:
