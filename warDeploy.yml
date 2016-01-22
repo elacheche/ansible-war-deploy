@@ -17,5 +17,5 @@
     file: path={{ warRemotePath }}/{{ warName }} state=absent
 
   handlers:
-    - name: restart tomcat7
+    - name: Restart tomcat7
       service: name=tomcat7 state=restarted
